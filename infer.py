@@ -122,6 +122,18 @@ class InferencePipeline:
                 "--backend",
                 "demucs",
             ]
+        elif separation_backend == "stem-splitter":
+            logger.substep("Using stem-splitter backend...")
+            separation_cmd = [
+                sys.executable,
+                "scripts/run_separation.py",
+                "--input",
+                str(audio_path),
+                "--output",
+                str(self.work_dir / "sep.npy"),
+                "--backend",
+                "stem-splitter",
+            ]
         else:
             logger.substep("Using Spleeter backend...")
             separation_cmd = [
@@ -230,7 +242,9 @@ class InferencePipeline:
             for f_name in required_files:
                 if not (self.work_dir / f_name).exists():
                     logger.error(f"Missing required file '{f_name}' in {self.work_dir}")
-                    logger.substep("Run the full pipeline once to generate these files.")
+                    logger.substep(
+                        "Run the full pipeline once to generate these files."
+                    )
                     sys.exit(1)
             logger.info("All required intermediate files found.")
 
