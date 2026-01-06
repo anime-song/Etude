@@ -168,12 +168,10 @@ def separate_with_stem_splitter(
     # -------------------------
     # config / device / dtype / model
     # -------------------------
-    config = SeparationConfig(skip_existing=False)
+    config = SeparationConfig()
 
     dev = resolve_device(config.device_preference)
-    use_amp = (
-        config.enable_autocast and config.use_half_precision and dev.type == "cuda"
-    )
+    use_amp = config.use_half_precision and dev.type == "cuda"
     dtype = (
         torch.float16
         if (config.use_half_precision and dev.type == "cuda")

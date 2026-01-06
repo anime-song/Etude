@@ -22,7 +22,7 @@ class EnvConfig(BaseModel):
     """Global environment settings."""
 
     device: Literal["auto", "cuda", "mps", "cpu"] = "auto"
-    separation_backend: Literal["spleeter", "demucs"] = "spleeter"
+    separation_backend: Literal["spleeter", "demucs", "stem-splitter"] = "spleeter"
     spleeter_env_name: str = "py38_spleeter"
     seed: int = 1234
 
